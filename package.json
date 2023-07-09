@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "console.table": "^0.10.0",
     "inquirer": "^9.2.7",
     "mysql2": "^3.5.0",
     "node": "^20.4.0"
