@@ -230,6 +230,7 @@ addRole = () => {
 							type: 'list',
 							name: 'dept',
 							message: 'What department is this role in?',
+							loop: false,
 							choices: dept,
 						},
 					])
@@ -298,6 +299,7 @@ addEmployee = () => {
 							type: 'list',
 							name: 'role',
 							message: "What is the employee's role?",
+							loop: false,
 							choices: roles,
 						},
 					])
@@ -321,6 +323,7 @@ addEmployee = () => {
 										type: 'list',
 										name: 'manager',
 										message: "Who is the employee's manager?",
+										loop: false,
 										choices: managers,
 									},
 								])
@@ -361,6 +364,7 @@ updateEmployee = () => {
 					type: 'list',
 					name: 'name',
 					message: 'Which employee would you like to update?',
+					loop: false,
 					choices: employees,
 				},
 			])
@@ -385,6 +389,7 @@ updateEmployee = () => {
 								type: 'list',
 								name: 'role',
 								message: "What is the employee's new role?",
+								loop: false,
 								choices: roles,
 							},
 						])
@@ -428,6 +433,7 @@ updateManager = () => {
 					type: 'list',
 					name: 'name',
 					message: 'Which employee would you like to update?',
+					loop: false,
 					choices: employees,
 				},
 			])
@@ -452,6 +458,7 @@ updateManager = () => {
 								type: 'list',
 								name: 'manager',
 								message: "Who is the employee's manager?",
+								loop: false,
 								choices: managers,
 							},
 						])
@@ -509,6 +516,7 @@ deleteDepartment = () => {
 					type: 'list',
 					name: 'dept',
 					message: 'What department do you want to delete?',
+					loop: false,
 					choices: dept,
 				},
 			])
@@ -541,6 +549,7 @@ deleteRole = () => {
 					type: 'list',
 					name: 'role',
 					message: 'What role do you want to delete?',
+					loop: false,
 					choices: role,
 				},
 			])
@@ -576,6 +585,7 @@ deleteEmployee = () => {
 					type: 'list',
 					name: 'name',
 					message: 'Which employee would you like to delete?',
+					loop: false,
 					choices: employees,
 				},
 			])
