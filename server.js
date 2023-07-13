@@ -1,8 +1,10 @@
+// Import modules
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
 
 require('dotenv').config();
 
+// Connection to SQL DB
 const db = mysql.createConnection({
 	host: 'localhost',
 	user: process.env.DB_USER,
@@ -16,6 +18,7 @@ db.connect((err) => {
 	promptUser();
 });
 
+// Inquirer prompt when the server is started
 const promptUser = () => {
 	inquirer
 		.prompt([
@@ -98,6 +101,7 @@ const promptUser = () => {
 		});
 };
 
+// showDepartments function that show all departments
 showDepartments = () => {
 	console.log('Showing all Departments...\n');
 	const sql = `SELECT 
@@ -111,6 +115,7 @@ showDepartments = () => {
 	});
 };
 
+// showRoles function that show all roles
 showRoles = () => {
 	console.log('Showing all Roles...\n');
 	const sql = `SELECT 
@@ -126,6 +131,7 @@ showRoles = () => {
 	});
 };
 
+// showEmployees function that show all employees
 showEmployees = () => {
 	console.log('Showing all Employees...\n');
 	const sql = `SELECT 
@@ -147,6 +153,7 @@ showEmployees = () => {
 	});
 };
 
+// addDepartment function that add department
 addDepartment = () => {
 	inquirer
 		.prompt([
@@ -175,6 +182,7 @@ addDepartment = () => {
 		});
 };
 
+// addRole function that add role
 addRole = () => {
 	inquirer
 		.prompt([
@@ -211,7 +219,7 @@ addRole = () => {
 			name, 
 			id FROM department`;
 
-			db.promise().query(roleSql, (err, data) => {
+			db.query(roleSql, (err, data) => {
 				if (err) throw err;
 
 				const dept = data.map(({ name, id }) => ({ name: name, value: id }));
@@ -242,6 +250,7 @@ addRole = () => {
 		});
 };
 
+// addEmployee function that add employee
 addEmployee = () => {
 	inquirer
 		.prompt([
@@ -278,7 +287,7 @@ addEmployee = () => {
 			role.id, 
 			role.title FROM role`;
 
-			db.promise().query(roleSql, (err, data) => {
+			db.query(roleSql, (err, data) => {
 				if (err) throw err;
 
 				const roles = data.map(({ id, title }) => ({ name: title, value: id }));
@@ -298,7 +307,7 @@ addEmployee = () => {
 
 						const managerSql = `SELECT * FROM employee`;
 
-						db.promise().query(managerSql, (err, data) => {
+						db.query(managerSql, (err, data) => {
 							if (err) throw err;
 
 							const managers = data.map(({ id, first_name, last_name }) => ({
@@ -334,10 +343,11 @@ addEmployee = () => {
 		});
 };
 
+// updateEmployee function that update employee
 updateEmployee = () => {
 	const employeeSql = `SELECT * FROM employee`;
 
-	db.promise().query(employeeSql, (err, data) => {
+	db.query(employeeSql, (err, data) => {
 		if (err) throw err;
 
 		const employees = data.map(({ id, first_name, last_name }) => ({
@@ -361,7 +371,7 @@ updateEmployee = () => {
 
 				const roleSql = `SELECT * FROM role`;
 
-				db.promise().query(roleSql, (err, data) => {
+				db.query(roleSql, (err, data) => {
 					if (err) throw err;
 
 					const roles = data.map(({ id, title }) => ({
@@ -400,10 +410,11 @@ updateEmployee = () => {
 	});
 };
 
+// updateManager function that update manager
 updateManager = () => {
 	const employeeSql = `SELECT * FROM employee`;
 
-	db.promise().query(employeeSql, (err, data) => {
+	db.query(employeeSql, (err, data) => {
 		if (err) throw err;
 
 		const employees = data.map(({ id, first_name, last_name }) => ({
@@ -427,7 +438,7 @@ updateManager = () => {
 
 				const managerSql = `SELECT * FROM employee`;
 
-				db.promise().query(managerSql, (err, data) => {
+				db.query(managerSql, (err, data) => {
 					if (err) throw err;
 
 					const managers = data.map(({ id, first_name, last_name }) => ({
@@ -466,6 +477,7 @@ updateManager = () => {
 	});
 };
 
+// employeeDepartment function that shows employees by departments
 employeeDepartment = () => {
 	console.log('Showing employee by departments...\n');
 	const sql = `SELECT 
@@ -475,13 +487,14 @@ employeeDepartment = () => {
 	LEFT JOIN role ON employee.role_id = role.id 
 	LEFT JOIN department ON role.department_id = department.id`;
 
-	db.promise().query(sql, (err, rows) => {
+	db.query(sql, (err, rows) => {
 		if (err) throw err;
 		console.table(rows);
 		promptUser();
 	});
 };
 
+// deleteDepartment function that delete department
 deleteDepartment = () => {
 	const deptSql = `SELECT * FROM department`;
 
@@ -513,10 +526,11 @@ deleteDepartment = () => {
 	});
 };
 
+// deleteRole function that delete role
 deleteRole = () => {
 	const roleSql = `SELECT * FROM role`;
 
-	db.promise().query(roleSql, (err, data) => {
+	db.query(roleSql, (err, data) => {
 		if (err) throw err;
 
 		const role = data.map(({ title, id }) => ({ name: title, value: id }));
@@ -544,10 +558,11 @@ deleteRole = () => {
 	});
 };
 
+// deleteEmployee function that delete employee
 deleteEmployee = () => {
 	const employeeSql = `SELECT * FROM employee`;
 
-	db.promise().query(employeeSql, (err, data) => {
+	db.query(employeeSql, (err, data) => {
 		if (err) throw err;
 
 		const employees = data.map(({ id, first_name, last_name }) => ({
